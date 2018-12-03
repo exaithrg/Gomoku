@@ -303,8 +303,9 @@ Status GameFinish(int index, int Gomoku_CSBD[15][15])
 	}
 	else if (index == DrawningGame) {
 		setbkcolor(WHITE);
-		settextcolor(BLACK);
-		outtextxy(QiPanGeKuan * 16, 80, "     和局     ");
+		settextcolor(LIGHTMAGENTA);
+		settextstyle(50, 20, "汉仪赵楷繁");
+		outtextxy(QiPanGeKuan * 16, 80, "   和局  ");
 	}
 	return OK;
 }
