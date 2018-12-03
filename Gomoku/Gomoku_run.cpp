@@ -326,19 +326,41 @@ int WinOrNot(int Gomoku_CSBD[15][15], int BushuBlack, int BushuWhite) {
 				continue;
 			}
 			if ((Gomoku_CSBD[j][i] == 1 && Gomoku_CSBD[j][i + 1] == 1 && Gomoku_CSBD[j][i + 2] == 1 
-				&& Gomoku_CSBD[j][i + 3] == 1 && Gomoku_CSBD[j][i + 4] == 1)
-				|| (Gomoku_CSBD[i][j] == 1 && Gomoku_CSBD[i + 1][j] == 1 && Gomoku_CSBD[i + 2][j] == 1
-				&& Gomoku_CSBD[i + 3][j] == 1 && Gomoku_CSBD[i + 4][j] == 1))
-				//ÅÐ¶ÏºÚÆåºá×Ý
+				&& Gomoku_CSBD[j][i + 3] == 1 && Gomoku_CSBD[j][i + 4] == 1))
+				//ÅÐ¶ÏºÚÆåºáÏò
 			{
+				setlinestyle(PS_SOLID, 5, NULL, 0);
+				setlinecolor(RED);
+				line(QiPanGeKuan*(i + 1), QiPanGeKuan*(j + 1), QiPanGeKuan*(i + 5), QiPanGeKuan*(j + 1));
+				//line( QiPanGeKuan*(j + 1), QiPanGeKuan*(i + 1), QiPanGeKuan*(j + 1), QiPanGeKuan*(i + 5));
+				return BlackWin;
+			}
+			if (Gomoku_CSBD[i][j] == 1 && Gomoku_CSBD[i + 1][j] == 1 && Gomoku_CSBD[i + 2][j] == 1
+				&& Gomoku_CSBD[i + 3][j] == 1 && Gomoku_CSBD[i + 4][j] == 1) {
+				//ÅÐ¶ÏºÚÆå×ÝÏò
+				setlinestyle(PS_SOLID, 5, NULL, 0);
+				setlinecolor(RED);
+				line(QiPanGeKuan*(j + 1), QiPanGeKuan*(i + 1), QiPanGeKuan*(j + 1), QiPanGeKuan*(i + 5));
+				//line(QiPanGeKuan*(i + 1), QiPanGeKuan*(j + 1), QiPanGeKuan*(i + 5), QiPanGeKuan*(j + 1));
 				return BlackWin;
 			}
 			if ((Gomoku_CSBD[j][i] == 2 && Gomoku_CSBD[j][i + 1] == 2 && Gomoku_CSBD[j][i + 2] == 2 
-				&& Gomoku_CSBD[j][i + 3] == 2 && Gomoku_CSBD[j][i + 4] == 2)
-				|| (Gomoku_CSBD[i][j] == 2 && Gomoku_CSBD[i + 1][j] == 2 && Gomoku_CSBD[i + 2][j] == 2 
-				&& Gomoku_CSBD[i + 3][j] == 2 && Gomoku_CSBD[i + 4][j] == 2))
-				//ÅÐ¶Ï°×Æåºá×Ý
+				&& Gomoku_CSBD[j][i + 3] == 2 && Gomoku_CSBD[j][i + 4] == 2))
+				//ÅÐ¶Ï°×ÆåºáÏò
 			{
+				setlinestyle(PS_SOLID, 5, NULL, 0);
+				setlinecolor(RED);
+				line(QiPanGeKuan*(i + 1), QiPanGeKuan*(j + 1), QiPanGeKuan*(i + 5), QiPanGeKuan*(j + 1));
+				//line(QiPanGeKuan*(i + 1), QiPanGeKuan*(j + 1),  QiPanGeKuan*(j + 1), QiPanGeKuan*(i + 5));
+				//line(QiPanGeKuan*(j + 1), QiPanGeKuan*(i + 1), QiPanGeKuan*(j + 1), QiPanGeKuan*(i + 5));
+				return WhiteWin;
+			}
+			if (Gomoku_CSBD[i][j] == 2 && Gomoku_CSBD[i + 1][j] == 2 && Gomoku_CSBD[i + 2][j] == 2
+				&& Gomoku_CSBD[i + 3][j] == 2 && Gomoku_CSBD[i + 4][j] == 2) {
+				//ÅÐ¶Ï°×Æå×ÝÏò
+				setlinestyle(PS_SOLID, 5, NULL, 0);
+				setlinecolor(RED);
+				line( QiPanGeKuan*(j + 1), QiPanGeKuan*(i + 1),  QiPanGeKuan*(j + 1), QiPanGeKuan*(i + 5));
 				return WhiteWin;
 			}
 		}
@@ -357,7 +379,7 @@ int WinOrNot(int Gomoku_CSBD[15][15], int BushuBlack, int BushuWhite) {
 			{
 				setlinestyle(PS_SOLID, 5, NULL, 0);
 				setlinecolor(RED);
-				line(QiPanGeKuan*(j + 1), QiPanGeKuan*(i + 1), QiPanGeKuan*(j + 5), QiPanGeKuan*(i + 5));
+				line(QiPanGeKuan*(i + 1), QiPanGeKuan*(j + 1), QiPanGeKuan*(i + 5), QiPanGeKuan*(j + 5));
 				return BlackWin;
 			}
 			if (Gomoku_CSBD[j][i] == 2 && Gomoku_CSBD[j + 1][i + 1] == 2 
@@ -367,7 +389,10 @@ int WinOrNot(int Gomoku_CSBD[15][15], int BushuBlack, int BushuWhite) {
 			{
 				setlinestyle(PS_SOLID, 5, NULL, 0);
 				setlinecolor(RED);
-				line(QiPanGeKuan*(j + 1), QiPanGeKuan*(i + 1), QiPanGeKuan*(j + 5), QiPanGeKuan*(i + 5));
+				line( QiPanGeKuan*(i + 1), QiPanGeKuan*(j + 1), QiPanGeKuan*(i + 5), QiPanGeKuan*(j + 5));
+				//setlinestyle(PS_SOLID, 5, NULL, 0);
+				//setlinecolor(RED);
+				//line(QiPanGeKuan*(j + 1), QiPanGeKuan*(i + 1), QiPanGeKuan*(j + 5), QiPanGeKuan*(i + 5));
 				//cout << "j=" << j << "i=" << i << endl;
 				//for (a = 0; a < 15; a++) {
 				//	for (b = 0; b < 15; b++) {
@@ -400,7 +425,7 @@ int WinOrNot(int Gomoku_CSBD[15][15], int BushuBlack, int BushuWhite) {
 			{
 				setlinestyle(PS_SOLID, 5, NULL, 0);
 				setlinecolor(RED);
-				line(QiPanGeKuan*(j + 1), QiPanGeKuan*(i + 1), QiPanGeKuan*(j + 5), QiPanGeKuan*(i - 3));
+				line(QiPanGeKuan*(i + 1), QiPanGeKuan*(j + 1), QiPanGeKuan*(i - 3), QiPanGeKuan*(j + 5));
 				return BlackWin;
 			}
 			if (Gomoku_CSBD[j][i] == 2 && Gomoku_CSBD[j + 1][i - 1] == 2 
@@ -408,6 +433,9 @@ int WinOrNot(int Gomoku_CSBD[15][15], int BushuBlack, int BushuWhite) {
 				&& Gomoku_CSBD[j + 4][i - 4] == 2)
 				//ÅÐ¶Ï°×Æå×óÐ±
 			{
+				setlinestyle(PS_SOLID, 5, NULL, 0);
+				setlinecolor(RED);
+				line(QiPanGeKuan*(i + 1), QiPanGeKuan*(j + 1), QiPanGeKuan*(i - 3), QiPanGeKuan*(j + 5));
 				return WhiteWin;
 			}
 		}

@@ -15,7 +15,6 @@ typedef int Status;
 #define WhiteWin 2				//白胜
 #define DrawningGame 3			//和局
 #define StepTime 60				//步时
-
 Status menu(int Gomoku_CSBD[15][15]);
 Status DrawBackground();
 Status playgame(int Gomoku_CSBD[15][15], int &restartgame);
