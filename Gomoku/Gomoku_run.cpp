@@ -318,7 +318,6 @@ int WinOrNot(int Gomoku_CSBD[15][15], int BushuBlack, int BushuWhite) {
 	int a, b;
 	int ZongBuShu;
 	ZongBuShu = BushuBlack + BushuWhite;
-	if (ZongBuShu == 225) return DrawningGame;
 	for (j = 0; j < 15; j++)
 	{
 		for (i = 0; i < 15; i++)
@@ -502,6 +501,7 @@ int WinOrNot(int Gomoku_CSBD[15][15], int BushuBlack, int BushuWhite) {
 		}	//6
 	}	//7
 	//½áÎ²À¨ºÅÊý£º7
+	if (ZongBuShu == 225) return DrawningGame;
 	return KeepPlaying;
 }
 
