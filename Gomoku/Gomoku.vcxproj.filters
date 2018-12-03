@@ -14,4 +14,51 @@
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
   </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="Gomoku_run.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="main.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="steal_1.txt">
+      <Filter>资源文件</Filter>
+    </Text>
+    <Text Include="mission.txt">
+      <Filter>资源文件</Filter>
+    </Text>
+    <Text Include="steal_2.txt">
+      <Filter>资源文件</Filter>
+    </Text>
+    <Text Include="easyx_graphics.txt">
+      <Filter>资源文件</Filter>
+    </Text>
+    <Text Include="git.txt">
+      <Filter>资源文件</Filter>
+    </Text>
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="timg.jpg">
+      <Filter>资源文件</Filter>
+    </Image>
+    <Image Include="gomoku_bk.jpg">
+      <Filter>资源文件</Filter>
+    </Image>
+    <Image Include="start.jpg">
+      <Filter>资源文件</Filter>
+    </Image>
+    <Image Include="kaishi_golden.jpg">
+      <Filter>资源文件</Filter>
+    </Image>
+    <Image Include="playbk.jpg">
+      <Filter>资源文件</Filter>
+    </Image>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="gomoku.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+  </ItemGroup>
 </Project>

@@ -115,6 +115,25 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Gomoku_run.cpp" />
+    <ClCompile Include="main.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="easyx_graphics.txt" />
+    <Text Include="git.txt" />
+    <Text Include="mission.txt" />
+    <Text Include="steal_1.txt" />
+    <Text Include="steal_2.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="gomoku_bk.jpg" />
+    <Image Include="kaishi_golden.jpg" />
+    <Image Include="playbk.jpg" />
+    <Image Include="start.jpg" />
+    <Image Include="timg.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="gomoku.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
