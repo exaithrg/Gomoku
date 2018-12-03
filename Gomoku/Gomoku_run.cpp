@@ -6,7 +6,19 @@
 #include"gomoku.h"
 using namespace std;
 
-Status menu(int Gomoku_CSBD[15][15])	//主菜单
+//////////////////////////////////////////////////////////////////////////////////
+//本程序只供学习使用，未经作者许可，不得用于其它任何用途
+//五子棋驱动代码
+//作者：H.R.Geng
+//修改日期：2018.12.3
+//版本：v1.0
+//All rights reserved
+//按F12（或Fn+F12)可以追踪函数
+//
+//
+//////////////////////////////////////////////////////////////////////////////////
+
+Status StartMenu(int Gomoku_CSBD[15][15])	//主菜单
 {
 	int left, right, top, bottom;
 	int restartgame = OK;
@@ -22,7 +34,7 @@ Status menu(int Gomoku_CSBD[15][15])	//主菜单
 	m = GetMouseMsg();
 	while (true)
 	{
-		if (MouseHit()) {
+		if (MouseHit()) {	//若直接GetMouseMsg，则如果鼠标不动程序会卡死在这里
 			m = GetMouseMsg();
 		}
 		if (m.uMsg == WM_MOUSEMOVE && m.x >= left && m.x <= right && m.y >= top && m.y <= bottom)
@@ -34,12 +46,13 @@ Status menu(int Gomoku_CSBD[15][15])	//主菜单
 		if (m.uMsg == WM_LBUTTONDOWN && m.x >= left && m.x <= right && m.y >= top && m.y <= bottom)
 		{
 			cleardevice();
-			loadimage(&playbk, "playbk.jpg", 1200, 713, false);// 从资源文件获取图像(bmp/jpg/gif/emf/wmf)
+			// 从资源文件获取图像(bmp/jpg/gif/emf/wmf)
+			loadimage(&playbk, "playbk.jpg", 1200, 713, false);
 			putimage(0, 0, &playbk, SRCPAINT);// 绘制图像到屏幕
 			while (restartgame==OK)
 			{
 				DrawBackground();
-				playgame(Gomoku_CSBD, restartgame);
+				GomokuRun(Gomoku_CSBD, restartgame);
 			}
 			return OK;	//退出开始菜单
 		}
@@ -103,7 +116,7 @@ Status DrawBackground()	//画背景
 	return OK;
 }
 
-Status playgame(int Gomoku_CSBD[15][15], int &restartgame)	//打游戏
+Status GomokuRun(int Gomoku_CSBD[15][15], int &restartgame)	//打游戏
 {
 	restartgame = ERROR;
 	char YuanLaiDe[5];
@@ -173,7 +186,7 @@ Status playgame(int Gomoku_CSBD[15][15], int &restartgame)	//打游戏
 			LastTime = FinishTime;
 		}
 		LuoZi = ERROR;
-		if (MouseHit()) {
+		if (MouseHit()) {	//若直接GetMouseMsg，则如果鼠标不动程序会卡死在这里
 			msg = GetMouseMsg();
 		}
 		tuichuyouxi = ExitGame(msg, left_exit, right_exit, top_exit, bottom_exit);
@@ -196,10 +209,10 @@ Status playgame(int Gomoku_CSBD[15][15], int &restartgame)	//打游戏
 			win = WinOrNot(Gomoku_CSBD, BushuBlack, BushuWhite);
 		}
 	}
-	Finish(win, Gomoku_CSBD);
+	GameFinish(win, Gomoku_CSBD);
 	while (true)
 	{
-		if (MouseHit()) {
+		if (MouseHit()) {	//若直接GetMouseMsg，则如果鼠标不动程序会卡死在这里
 			msg = GetMouseMsg();
 		}
 		tuichuyouxi = ExitGame(msg, left_exit, right_exit, top_exit, bottom_exit);
@@ -256,7 +269,7 @@ Status RestartGame(MOUSEMSG m, int left, int right, int top, int bottom) {
 }
 
 //Status Finish(int index, int Gomoku_CSBD[15][15], int &restartgame)
-Status Finish(int index, int Gomoku_CSBD[15][15])
+Status GameFinish(int index, int Gomoku_CSBD[15][15])
 {
 	int tuichuyouxi = ERROR;
 	//int left_exit = 750;
@@ -293,25 +306,10 @@ Status Finish(int index, int Gomoku_CSBD[15][15])
 		settextcolor(BLACK);
 		outtextxy(QiPanGeKuan * 16, 80, "     和局     ");
 	}
-	//settextstyle(70, 21, "华文行楷");
-	//setbkcolor(WHITE);
-	//settextcolor(RED);
-	//outtextxy(750, 500, "点击退出");
-	//while (true)
-	//{
-	//	m = GetMouseMsg();
-	//	tuichuyouxi = ExitGame(m, left_exit, right_exit, top_exit, bottom_exit);
-	//	if (tuichuyouxi == OK) {
-	//		return OK;
-	//	}
-	//	restartgame = RestartGame(m, left_restart, right_restart, top_restart, bottom_restart);
-	//	if (restartgame == OK) {
-	//		return OK;
-	//	}
-	//}
 	return OK;
 }
 
+//十分笨的方法，强行遍历判断有没有五子连在一起
 int WinOrNot(int Gomoku_CSBD[15][15], int BushuBlack, int BushuWhite) {
 	int i, j;
 	int a, b;
@@ -322,46 +320,89 @@ int WinOrNot(int Gomoku_CSBD[15][15], int BushuBlack, int BushuWhite) {
 	{
 		for (i = 0; i < 15; i++)
 		{
-			if (i + 4 >= 15 || j + 4 >= 15) {
-				continue;
+			//某个子是黑的
+			//判断横向向右有没有连成5子
+			if (Gomoku_CSBD[j][i] == 1) {	
+				if (i + 1 >= 15)	continue;
+				if (Gomoku_CSBD[j][i + 1] == 1) {
+					if (i + 2 >= 15)	continue;
+					if (Gomoku_CSBD[j][i + 2] == 1) {
+						if (i + 3 >= 15)	continue;
+						if (Gomoku_CSBD[j][i + 3] == 1) {
+							if (i + 4 >= 15)	continue;
+							if (Gomoku_CSBD[j][i + 4] == 1) {
+								setlinestyle(PS_SOLID, 5, NULL, 0);
+								setlinecolor(RED);
+								line(QiPanGeKuan*(i + 1), QiPanGeKuan*(j + 1), QiPanGeKuan*(i + 5), QiPanGeKuan*(j + 1));
+								//line( QiPanGeKuan*(j + 1), QiPanGeKuan*(i + 1), QiPanGeKuan*(j + 1), QiPanGeKuan*(i + 5));
+								return BlackWin;
+							}
+						}
+					}
+				}
 			}
-			if ((Gomoku_CSBD[j][i] == 1 && Gomoku_CSBD[j][i + 1] == 1 && Gomoku_CSBD[j][i + 2] == 1 
-				&& Gomoku_CSBD[j][i + 3] == 1 && Gomoku_CSBD[j][i + 4] == 1))
-				//判断黑棋横向
-			{
-				setlinestyle(PS_SOLID, 5, NULL, 0);
-				setlinecolor(RED);
-				line(QiPanGeKuan*(i + 1), QiPanGeKuan*(j + 1), QiPanGeKuan*(i + 5), QiPanGeKuan*(j + 1));
-				//line( QiPanGeKuan*(j + 1), QiPanGeKuan*(i + 1), QiPanGeKuan*(j + 1), QiPanGeKuan*(i + 5));
-				return BlackWin;
+			//某个子是黑的
+			//判断纵向向下有没有连成5子
+			if (Gomoku_CSBD[i][j] == 1) {
+				if (i + 1 >= 15)	continue;
+				if (Gomoku_CSBD[i + 1][j] == 1) {
+					if (i + 2 >= 15)	continue;
+					if (Gomoku_CSBD[i + 2][j] == 1) {
+						if (i + 3 >= 15)	continue;
+						if (Gomoku_CSBD[i + 3][j] == 1) {
+							if (i + 4 >= 15)	continue;
+							if (Gomoku_CSBD[i + 4][j] == 1) {
+								setlinestyle(PS_SOLID, 5, NULL, 0);
+								setlinecolor(RED);
+								line(QiPanGeKuan*(j + 1), QiPanGeKuan*(i + 1), QiPanGeKuan*(j + 1), QiPanGeKuan*(i + 5));
+								//line(QiPanGeKuan*(i + 1), QiPanGeKuan*(j + 1), QiPanGeKuan*(i + 5), QiPanGeKuan*(j + 1));
+								return BlackWin;
+							}
+						}
+					}
+				}
 			}
-			if (Gomoku_CSBD[i][j] == 1 && Gomoku_CSBD[i + 1][j] == 1 && Gomoku_CSBD[i + 2][j] == 1
-				&& Gomoku_CSBD[i + 3][j] == 1 && Gomoku_CSBD[i + 4][j] == 1) {
-				//判断黑棋纵向
-				setlinestyle(PS_SOLID, 5, NULL, 0);
-				setlinecolor(RED);
-				line(QiPanGeKuan*(j + 1), QiPanGeKuan*(i + 1), QiPanGeKuan*(j + 1), QiPanGeKuan*(i + 5));
-				//line(QiPanGeKuan*(i + 1), QiPanGeKuan*(j + 1), QiPanGeKuan*(i + 5), QiPanGeKuan*(j + 1));
-				return BlackWin;
+			//某个子是白的
+			//判断横向向右有没有连成5子
+			if (Gomoku_CSBD[j][i] == 2) {
+				if (i + 1 >= 15)	continue;
+				if (Gomoku_CSBD[j][i + 1] == 2) {
+					if (i + 2 >= 15)	continue;
+					if (Gomoku_CSBD[j][i + 2] == 2) {
+						if (i + 3 >= 15)	continue;
+						if (Gomoku_CSBD[j][i + 3] == 2) {
+							if (i + 4 >= 15)	continue;
+							if (Gomoku_CSBD[j][i + 4] == 2) {
+								setlinestyle(PS_SOLID, 5, NULL, 0);
+								setlinecolor(RED);
+								line(QiPanGeKuan*(i + 1), QiPanGeKuan*(j + 1), QiPanGeKuan*(i + 5), QiPanGeKuan*(j + 1));
+								//line(QiPanGeKuan*(i + 1), QiPanGeKuan*(j + 1),  QiPanGeKuan*(j + 1), QiPanGeKuan*(i + 5));
+								//line(QiPanGeKuan*(j + 1), QiPanGeKuan*(i + 1), QiPanGeKuan*(j + 1), QiPanGeKuan*(i + 5));
+								return WhiteWin;
+							}
+						}
+					}
+				}
 			}
-			if ((Gomoku_CSBD[j][i] == 2 && Gomoku_CSBD[j][i + 1] == 2 && Gomoku_CSBD[j][i + 2] == 2 
-				&& Gomoku_CSBD[j][i + 3] == 2 && Gomoku_CSBD[j][i + 4] == 2))
-				//判断白棋横向
-			{
-				setlinestyle(PS_SOLID, 5, NULL, 0);
-				setlinecolor(RED);
-				line(QiPanGeKuan*(i + 1), QiPanGeKuan*(j + 1), QiPanGeKuan*(i + 5), QiPanGeKuan*(j + 1));
-				//line(QiPanGeKuan*(i + 1), QiPanGeKuan*(j + 1),  QiPanGeKuan*(j + 1), QiPanGeKuan*(i + 5));
-				//line(QiPanGeKuan*(j + 1), QiPanGeKuan*(i + 1), QiPanGeKuan*(j + 1), QiPanGeKuan*(i + 5));
-				return WhiteWin;
-			}
-			if (Gomoku_CSBD[i][j] == 2 && Gomoku_CSBD[i + 1][j] == 2 && Gomoku_CSBD[i + 2][j] == 2
-				&& Gomoku_CSBD[i + 3][j] == 2 && Gomoku_CSBD[i + 4][j] == 2) {
-				//判断白棋纵向
-				setlinestyle(PS_SOLID, 5, NULL, 0);
-				setlinecolor(RED);
-				line( QiPanGeKuan*(j + 1), QiPanGeKuan*(i + 1),  QiPanGeKuan*(j + 1), QiPanGeKuan*(i + 5));
-				return WhiteWin;
+			//某个子是白的
+			//判断纵向向下有没有连成5子
+			if (Gomoku_CSBD[i][j] == 2) {
+				if (i + 1 >= 15)	continue;
+				if (Gomoku_CSBD[i + 1][j] == 2) {
+					if (i + 2 >= 15)	continue;
+					if (Gomoku_CSBD[i + 2][j] == 2) {
+						if (i + 3 >= 15)	continue;
+						if (Gomoku_CSBD[i + 3][j] == 2) {
+							if (i + 4 >= 15)	continue;
+							if (Gomoku_CSBD[i + 4][j] == 2) {
+								setlinestyle(PS_SOLID, 5, NULL, 0);
+								setlinecolor(RED);
+								line(QiPanGeKuan*(j + 1), QiPanGeKuan*(i + 1), QiPanGeKuan*(j + 1), QiPanGeKuan*(i + 5));
+								return WhiteWin;
+							}
+						}
+					}
+				}
 			}
 		}
 	}
@@ -369,77 +410,95 @@ int WinOrNot(int Gomoku_CSBD[15][15], int BushuBlack, int BushuWhite) {
 	{
 		for (i = 0; i<15; i++)
 		{
-			if (i + 4 >= 15 || j + 4 >= 15 ) {
-				continue;
+			//某个子是黑的
+			//判断它向右下方延展是否连成5子
+			if (Gomoku_CSBD[j][i] == 1) {
+				if (j + 1 >= 15 || i + 1 >= 15)	continue;
+				if (Gomoku_CSBD[j + 1][i + 1] == 1) {
+					if (j + 2 >= 15 || i + 2 >= 15)	continue;
+					if (Gomoku_CSBD[j + 2][i + 2] == 1) {
+						if (j + 3 >= 15 || i + 3 >= 15)	continue;
+						if (Gomoku_CSBD[j + 3][i + 3] == 1) {
+							if (j + 4 >= 15 || i + 4 >= 15)	continue;
+							if (Gomoku_CSBD[j + 4][i + 4] == 1) {
+								setlinestyle(PS_SOLID, 5, NULL, 0);
+								setlinecolor(RED);
+								line(QiPanGeKuan*(i + 1), QiPanGeKuan*(j + 1), QiPanGeKuan*(i + 5), QiPanGeKuan*(j + 5));
+								return BlackWin;
+							}	//if (Gomoku_CSBD[j + 4][i + 4] == 1)
+						}	//if (Gomoku_CSBD[j + 3][i + 3] == 1)
+					}	//if (Gomoku_CSBD[j + 2][i + 2] == 1)
+				}	//if (Gomoku_CSBD[j + 1][i + 1] == 1)
+			}	//if (Gomoku_CSBD[j][i] == 1)
+
+			//某个子是白的
+			//判断它向右下方延展是否连成5子
+			if (Gomoku_CSBD[j][i] == 2) {
+				if (j + 1 >= 15 || i + 1 >= 15)	continue;
+				if (Gomoku_CSBD[j + 1][i + 1] == 2) {
+					if (j + 2 >= 15 || i + 2 >= 15)	continue;
+					if (Gomoku_CSBD[j + 2][i + 2] == 2) {
+						if (j + 3 >= 15 || i + 3 >= 15)	continue;
+						if (Gomoku_CSBD[j + 3][i + 3] == 2) {
+							if (j + 4 >= 15 || i + 4 >= 15)	continue;
+							if (Gomoku_CSBD[j + 4][i + 4] == 2) {
+								setlinestyle(PS_SOLID, 5, NULL, 0);
+								setlinecolor(RED);
+								line(QiPanGeKuan*(i + 1), QiPanGeKuan*(j + 1), QiPanGeKuan*(i + 5), QiPanGeKuan*(j + 5));
+								return WhiteWin;
+							}
+						}
+					}
+				}
 			}
-			if (Gomoku_CSBD[j][i] == 1 && Gomoku_CSBD[j + 1][i + 1] == 1 
-				&& Gomoku_CSBD[j + 2][i + 2] == 1 && Gomoku_CSBD[j + 3][i + 3] == 1 
-				&& Gomoku_CSBD[j + 4][i + 4] == 1)
-				//判断黑棋右斜
-			{
-				setlinestyle(PS_SOLID, 5, NULL, 0);
-				setlinecolor(RED);
-				line(QiPanGeKuan*(i + 1), QiPanGeKuan*(j + 1), QiPanGeKuan*(i + 5), QiPanGeKuan*(j + 5));
-				return BlackWin;
-			}
-			if (Gomoku_CSBD[j][i] == 2 && Gomoku_CSBD[j + 1][i + 1] == 2 
-				&& Gomoku_CSBD[j + 2][i + 2] == 2 && Gomoku_CSBD[j + 3][i + 3] == 2 
-				&& Gomoku_CSBD[j + 4][i + 4] == 2)
-				//判断白棋右斜
-			{
-				setlinestyle(PS_SOLID, 5, NULL, 0);
-				setlinecolor(RED);
-				line( QiPanGeKuan*(i + 1), QiPanGeKuan*(j + 1), QiPanGeKuan*(i + 5), QiPanGeKuan*(j + 5));
-				//setlinestyle(PS_SOLID, 5, NULL, 0);
-				//setlinecolor(RED);
-				//line(QiPanGeKuan*(j + 1), QiPanGeKuan*(i + 1), QiPanGeKuan*(j + 5), QiPanGeKuan*(i + 5));
-				//cout << "j=" << j << "i=" << i << endl;
-				//for (a = 0; a < 15; a++) {
-				//	for (b = 0; b < 15; b++) {
-				//		cout << Gomoku_CSBD[a][b] << " ";
-				//	}
-				//	cout << endl;
-				//}
-				//cout << "  以下是判定" << endl;
-				//cout << "Gomoku_CSBD[i][j]" << endl;
-				//for (a = 0; a < 15; a++) {
-				//	cout << Gomoku_CSBD[j][a] << " ";
-				//}
-				//cout << endl << "条件内容见下" << endl;
-				//for (a = 0; a < 5; a++) {
-				//	cout << Gomoku_CSBD[j + a][i + a] << " ";
-				//}
-				////有bug;
-				return WhiteWin;
-			}
+			
 		}
-		if (i - 4 <= 0) {
-			continue;
-		}
+
 		for (i = 4; i<15; i++)
 		{
-			if (Gomoku_CSBD[j][i] == 1 && Gomoku_CSBD[j + 1][i - 1] == 1 
-				&& Gomoku_CSBD[j + 2][i - 2] == 1 && Gomoku_CSBD[j + 3][i - 3] == 1 
-				&& Gomoku_CSBD[j + 4][i - 4] == 1)
-				//判断黑棋左斜
-			{
-				setlinestyle(PS_SOLID, 5, NULL, 0);
-				setlinecolor(RED);
-				line(QiPanGeKuan*(i + 1), QiPanGeKuan*(j + 1), QiPanGeKuan*(i - 3), QiPanGeKuan*(j + 5));
-				return BlackWin;
+			//某个子是黑的
+			//判断它向左下方延展是否连成5子
+			if (Gomoku_CSBD[j][i] == 1) {
+				if (j + 1 >= 15 || i - 1 < 0)	continue;
+				if (Gomoku_CSBD[j + 1][i - 1] == 1) {
+					if (j + 2 >= 15 || i - 2 < 0)	continue;
+					if (Gomoku_CSBD[j + 2][i - 2] == 1) {
+						if (j + 3 >= 15 || i - 3 < 0)	continue;
+						if (Gomoku_CSBD[j + 3][i - 3] == 1) {
+							if (j + 4 >= 15 || i - 4 < 0)	continue;
+							if (Gomoku_CSBD[j + 4][i - 4] == 1) {
+								setlinestyle(PS_SOLID, 5, NULL, 0);
+								setlinecolor(RED);
+								line(QiPanGeKuan*(i + 1), QiPanGeKuan*(j + 1), QiPanGeKuan*(i - 3), QiPanGeKuan*(j + 5));
+								return BlackWin;
+							}
+						}
+					}
+				}
 			}
-			if (Gomoku_CSBD[j][i] == 2 && Gomoku_CSBD[j + 1][i - 1] == 2 
-				&& Gomoku_CSBD[j + 2][i - 2] == 2 && Gomoku_CSBD[j + 3][i - 3] == 2 
-				&& Gomoku_CSBD[j + 4][i - 4] == 2)
-				//判断白棋左斜
-			{
-				setlinestyle(PS_SOLID, 5, NULL, 0);
-				setlinecolor(RED);
-				line(QiPanGeKuan*(i + 1), QiPanGeKuan*(j + 1), QiPanGeKuan*(i - 3), QiPanGeKuan*(j + 5));
-				return WhiteWin;
-			}
-		}
-	}
+			//某个子是白的
+			//判断它向左下方延展是否连成5子
+			if (Gomoku_CSBD[j][i] == 2) {
+				if (j + 1 >= 15 || i - 1 < 0)	continue;
+				if (Gomoku_CSBD[j + 1][i - 1] == 2) {
+					if (j + 2 >= 15 || i - 2 < 0)	continue;
+					if (Gomoku_CSBD[j + 2][i - 2] == 2) {
+						if (j + 3 >= 15 || i - 3 < 0)	continue;
+						if (Gomoku_CSBD[j + 3][i - 3] == 2) {
+							if (j + 4 >= 15 || i - 4 < 0)	continue;
+							if (Gomoku_CSBD[j + 4][i - 4] == 2) {
+								setlinestyle(PS_SOLID, 5, NULL, 0);
+								setlinecolor(RED);
+								line(QiPanGeKuan*(i + 1), QiPanGeKuan*(j + 1), QiPanGeKuan*(i - 3), QiPanGeKuan*(j + 5));
+								return WhiteWin;
+							}	//1
+						}	//2
+					}	//3
+				}	//4
+			}	//5
+		}	//6
+	}	//7
+	//结尾括号数：7
 	return KeepPlaying;
 }
 
@@ -502,15 +561,7 @@ Status PrintTime(int player, time_t StartTime, time_t FinishTime, bool &ChangePl
 	int i;
 	time_t TimeDifference;
 	time_t TimeRemain;
-	//RemainTime_Black[2] = RemainTime_White[2] = ':';
-	//暂时将步时写死为1分钟，需要改动再改
-	//int hour_steptime, minute_steptime, second_steptime;
-	//hour_steptime = StepTime / 3600;
-	//minute_steptime = StepTime % 3600;
-	//minute_steptime = minute_steptime / 60;
-	//second_steptime = minute_steptime % 60;
-	//
-	//
+	
 	TimeDifference = FinishTime - StartTime;
 	TimeRemain = StepTime - TimeDifference;
 	_itoa_s(TimeRemain, RemainTime, 10);
@@ -570,7 +621,3 @@ Status PrintTime(int player, time_t StartTime, time_t FinishTime, bool &ChangePl
 	}
 	return OK;
 }
-
-//Status MoveByNum(int Gomoku_CSBD[15][15], int &player, int &BushuBlack, int &BushuWhite) {
-//
-//}

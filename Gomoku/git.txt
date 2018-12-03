@@ -553,3 +553,159 @@ public:
 	void show();
 	void run();
 };
+
+
+			//if (Gomoku_CSBD[i][j] == 1 && Gomoku_CSBD[i + 1][j] == 1 && Gomoku_CSBD[i + 2][j] == 1
+			//	&& Gomoku_CSBD[i + 3][j] == 1 && Gomoku_CSBD[i + 4][j] == 1) {
+			//	//判断黑棋纵向
+			//	setlinestyle(PS_SOLID, 5, NULL, 0);
+			//	setlinecolor(RED);
+			//	line(QiPanGeKuan*(j + 1), QiPanGeKuan*(i + 1), QiPanGeKuan*(j + 1), QiPanGeKuan*(i + 5));
+			//	//line(QiPanGeKuan*(i + 1), QiPanGeKuan*(j + 1), QiPanGeKuan*(i + 5), QiPanGeKuan*(j + 1));
+			//	return BlackWin;
+			//}
+
+			
+			//if ((Gomoku_CSBD[j][i] == 1 && Gomoku_CSBD[j][i + 1] == 1 && Gomoku_CSBD[j][i + 2] == 1 
+			//	&& Gomoku_CSBD[j][i + 3] == 1 && Gomoku_CSBD[j][i + 4] == 1))
+			//	//判断黑棋横向
+			//{
+			//	setlinestyle(PS_SOLID, 5, NULL, 0);
+			//	setlinecolor(RED);
+			//	line(QiPanGeKuan*(i + 1), QiPanGeKuan*(j + 1), QiPanGeKuan*(i + 5), QiPanGeKuan*(j + 1));
+			//	//line( QiPanGeKuan*(j + 1), QiPanGeKuan*(i + 1), QiPanGeKuan*(j + 1), QiPanGeKuan*(i + 5));
+			//	return BlackWin;
+			//}
+
+			//if (i + 4 >= 15 || j + 4 >= 15) {
+			//	continue;
+			//}
+
+			if ((Gomoku_CSBD[j][i] == 2 && Gomoku_CSBD[j][i + 1] == 2 && Gomoku_CSBD[j][i + 2] == 2 
+				&& Gomoku_CSBD[j][i + 3] == 2 && Gomoku_CSBD[j][i + 4] == 2))
+				//判断白棋横向
+			{
+				setlinestyle(PS_SOLID, 5, NULL, 0);
+				setlinecolor(RED);
+				line(QiPanGeKuan*(i + 1), QiPanGeKuan*(j + 1), QiPanGeKuan*(i + 5), QiPanGeKuan*(j + 1));
+				//line(QiPanGeKuan*(i + 1), QiPanGeKuan*(j + 1),  QiPanGeKuan*(j + 1), QiPanGeKuan*(i + 5));
+				//line(QiPanGeKuan*(j + 1), QiPanGeKuan*(i + 1), QiPanGeKuan*(j + 1), QiPanGeKuan*(i + 5));
+				return WhiteWin;
+			}
+
+			if (Gomoku_CSBD[i][j] == 2 && Gomoku_CSBD[i + 1][j] == 2 && Gomoku_CSBD[i + 2][j] == 2
+				&& Gomoku_CSBD[i + 3][j] == 2 && Gomoku_CSBD[i + 4][j] == 2) {
+				//判断白棋纵向
+				setlinestyle(PS_SOLID, 5, NULL, 0);
+				setlinecolor(RED);
+				line( QiPanGeKuan*(j + 1), QiPanGeKuan*(i + 1),  QiPanGeKuan*(j + 1), QiPanGeKuan*(i + 5));
+				return WhiteWin;
+			}
+
+			//setlinestyle(PS_SOLID, 5, NULL, 0);
+				//setlinecolor(RED);
+				//line(QiPanGeKuan*(j + 1), QiPanGeKuan*(i + 1), QiPanGeKuan*(j + 5), QiPanGeKuan*(i + 5));
+				//cout << "j=" << j << "i=" << i << endl;
+				//for (a = 0; a < 15; a++) {
+				//	for (b = 0; b < 15; b++) {
+				//		cout << Gomoku_CSBD[a][b] << " ";
+				//	}
+				//	cout << endl;
+				//}
+				//cout << "  以下是判定" << endl;
+				//cout << "Gomoku_CSBD[i][j]" << endl;
+				//for (a = 0; a < 15; a++) {
+				//	cout << Gomoku_CSBD[j][a] << " ";
+				//}
+				//cout << endl << "条件内容见下" << endl;
+				//for (a = 0; a < 5; a++) {
+				//	cout << Gomoku_CSBD[j + a][i + a] << " ";
+				//}
+				////有bug;
+
+				//if (i + 4 >= 15 || j + 4 >= 15 ) {
+			//	continue;
+			//}
+
+			//if (Gomoku_CSBD[j][i] == 1 && Gomoku_CSBD[j + 1][i + 1] == 1 
+			//	&& Gomoku_CSBD[j + 2][i + 2] == 1 && Gomoku_CSBD[j + 3][i + 3] == 1 
+			//	&& Gomoku_CSBD[j + 4][i + 4] == 1)
+			//{
+			//	setlinestyle(PS_SOLID, 5, NULL, 0);
+			//	setlinecolor(RED);
+			//	line(QiPanGeKuan*(i + 1), QiPanGeKuan*(j + 1), QiPanGeKuan*(i + 5), QiPanGeKuan*(j + 5));
+			//	return BlackWin;
+			//}
+
+			//if (Gomoku_CSBD[j][i] == 2 && Gomoku_CSBD[j + 1][i + 1] == 2 
+			//	&& Gomoku_CSBD[j + 2][i + 2] == 2 && Gomoku_CSBD[j + 3][i + 3] == 2 
+			//	&& Gomoku_CSBD[j + 4][i + 4] == 2)
+			//	//判断白棋右斜
+			//{
+			//	setlinestyle(PS_SOLID, 5, NULL, 0);
+			//	setlinecolor(RED);
+			//	line(QiPanGeKuan*(i + 1), QiPanGeKuan*(j + 1), QiPanGeKuan*(i + 5), QiPanGeKuan*(j + 5));
+			//	return WhiteWin;
+			//}
+
+			
+			//if (Gomoku_CSBD[j][i] == 1 && Gomoku_CSBD[j + 1][i - 1] == 1 
+			//	&& Gomoku_CSBD[j + 2][i - 2] == 1 && Gomoku_CSBD[j + 3][i - 3] == 1 
+			//	&& Gomoku_CSBD[j + 4][i - 4] == 1)
+			//	//判断黑棋左斜
+			//{
+			//	setlinestyle(PS_SOLID, 5, NULL, 0);
+			//	setlinecolor(RED);
+			//	line(QiPanGeKuan*(i + 1), QiPanGeKuan*(j + 1), QiPanGeKuan*(i - 3), QiPanGeKuan*(j + 5));
+			//	return BlackWin;
+			//}
+			//某个子是白的
+			//判断它向左下方延展是否连成5子
+
+			//if (Gomoku_CSBD[j][i] == 2 && Gomoku_CSBD[j + 1][i - 1] == 2 
+			//	&& Gomoku_CSBD[j + 2][i - 2] == 2 && Gomoku_CSBD[j + 3][i - 3] == 2 
+			//	&& Gomoku_CSBD[j + 4][i - 4] == 2)
+			//	//判断白棋左斜
+			//{
+			//	setlinestyle(PS_SOLID, 5, NULL, 0);
+			//	setlinecolor(RED);
+			//	line(QiPanGeKuan*(i + 1), QiPanGeKuan*(j + 1), QiPanGeKuan*(i - 3), QiPanGeKuan*(j + 5));
+			//	return WhiteWin;
+			//}
+
+			
+		//if (i - 4 <= 0) {
+		//	continue;
+		//}
+
+		//RemainTime_Black[2] = RemainTime_White[2] = ':';
+	//暂时将步时写死为1分钟，需要改动再改
+	//int hour_steptime, minute_steptime, second_steptime;
+	//hour_steptime = StepTime / 3600;
+	//minute_steptime = StepTime % 3600;
+	//minute_steptime = minute_steptime / 60;
+	//second_steptime = minute_steptime % 60;
+	//
+	//
+
+	//Status MoveByNum(int Gomoku_CSBD[15][15], int &player, int &BushuBlack, int &BushuWhite) {
+//
+//}
+
+
+	//settextstyle(70, 21, "华文行楷");
+	//setbkcolor(WHITE);
+	//settextcolor(RED);
+	//outtextxy(750, 500, "点击退出");
+	//while (true)
+	//{
+	//	m = GetMouseMsg();
+	//	tuichuyouxi = ExitGame(m, left_exit, right_exit, top_exit, bottom_exit);
+	//	if (tuichuyouxi == OK) {
+	//		return OK;
+	//	}
+	//	restartgame = RestartGame(m, left_restart, right_restart, top_restart, bottom_restart);
+	//	if (restartgame == OK) {
+	//		return OK;
+	//	}
+	//}
