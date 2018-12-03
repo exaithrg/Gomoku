@@ -398,6 +398,7 @@ int WinOrNot(int Gomoku_CSBD[15][15], int BushuBlack, int BushuWhite) {
 				&& Gomoku_CSBD[j + 4][i - 4] == 1)
 				//ÅÐ¶ÏºÚÆå×óÐ±
 			{
+				cout << "motherfucker";
 				setlinestyle(PS_SOLID, 5, NULL, 0);
 				setlinecolor(RED);
 				line(QiPanGeKuan*(j + 1), QiPanGeKuan*(i + 1), QiPanGeKuan*(j + 5), QiPanGeKuan*(i - 3));
