@@ -142,7 +142,9 @@ Status GomokuRun(int Gomoku_CSBD[15][15], int &restartgame)	//打游戏
 	settextcolor(BLUE);
 	outtextxy(750, 420, "重新开始");
 	int player=PlayerIsBlack;
-	int BushuBlack = 0, BushuWhite = 0;	//初值为0
+
+	int BushuBlack = 0, BushuWhite = 0;	//初值为0，关键
+
 	int i, j;
 	int LuoZi = ERROR;
 	for (i = 0; i < 15; i++) {
